@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title></title>
+	<style type="text/css">
+	/**/
+	html,body,div,ul,li,h1,h2{
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		font-family: "Microsoft YaHei","Arial";
+	}
+	ul{list-style: none;}
+	.clearfix:before,
+	.clearfix:after {
+	  content: ".";
+	  display: block;
+	  height: 0;
+	  visibility: hidden;
+	}
+	.clearfix:after {clear: both;}
+	.clearfix {zoom: 1;} /* IE < 8 */
+	/*三角形*/
+	.sanjx{
+		border-top: 4px solid #000;
+		border-left: 4px solid transparent;
+		border-right: 4px solid transparent;
+		border-bottom: 4px solid transparent;
+	}
+	/*JQ滑动导航*/
+	.lavaLamp{
+		position: relative;/*元素飘起来的条件*/
+		width: 421px;
+		height: 29px;
+		padding:15px;
+		border: 1px solid silver;
+	}
+	.lavaLamp li{
+		float: left;
+	}
+	.lavaLamp li a{
+		float: left;/*li飘起来后，里面的a接着飘起来*/
+		font-weight: bold;
+		color: #333;
+		font-size: 14px;
+		position: relative;
+		text-decoration: none;
+		margin: auto 10px;
+		top: 8px;
+		z-index: 3;/*由于下面的li.back因为position加float双重飘，图层样式比普通li高，所以要声明a比它高*/
+	}
+	.lavaLamp li a:hover{
+		text-decoration: none;
+		color: #333333;
+	}
+	.lavaLamp.nopic li.back{
+		height: 30px;
+		/*border-bottom: 3px solid #34538b; 第一种效果*/
+		background: #eee;
+		border: 1px solid #bcbcbc;
+		position: absolute;
+		z-index: 2;/*双重飘，图层比普通的高*/
+	}
+	.lavaLamp.border li.back{
+		height: 30px;
+		border-bottom: 3px solid #34538b; 
+		position: absolute;
+		z-index: 2;
+	}
+	.lavaLamp.withpic{
+		background: url(image/lava_bg.gif);
+		border: none;
+	}
+	.lavaLamp.withpic li.back{
+		height: 30px;
+		background: url(image/lava_menu_bg.gif) right -30px no-repeat; 
+		position: absolute;
+		z-index: 2;
+	}
+	.lavaLamp.withpic li.back .left{
+		height: 100%;
+		margin-right: 9px;
+		background: url(image/lava_menu_bg.gif) no-repeat;
+	}
+	/*js实现滑条导航*/
+	.jsNav{
+		position: relative;
+		width: 832px;
+		margin: 0 auto;
+		border-bottom: 2px #ddd solid;
+	}
+	.navList{
+		float: left;
+	}
+	.navList a{
+		display: block;
+		float: left;
+		height: 50px;
+		padding: 0 40px;
+		line-height: 50px;
+		color: #666;
+		font-size: 16px;
+		text-decoration: none;
+	}
+	.navLast{
+		position: absolute;
+		height: 2px;
+		top: 50px;
+		background: #80b600;
+		overflow: hidden;/*兼容IE height最佳实践*/
+	}
+	</style>
+</head>
+<body>
+	<!---->
+	<!--三角形-->
+	<s class="sanjx"></s>
+	<!--jq滑动导航-->
+	<ul class="lavaLamp nopic">
+		<li class="hdCurrent nopic"><a href="#">圣诞节</a></li>
+		<li><a href="#">地址</a></li>
+		<li><a href="#">宠物小精灵</a></li>
+		<li><a href="#">jquery mobile</a></li>
+	</ul>
+	<ul class="lavaLamp border">
+		<li class="hdCurrent"><a href="#">圣诞节</a></li>
+		<li><a href="#">地址</a></li>
+		<li><a href="#">宠物小精灵</a></li>
+		<li><a href="#">jquery mobile</a></li>
+	</ul>
+		<ul class="lavaLamp withpic">
+		<li class="hdCurrent"><a href="#">圣诞节</a></li>
+		<li><a href="#">地址</a></li>
+		<li><a href="#">宠物小精灵</a></li>
+		<li><a href="#">jquery mobile</a></li>
+	</ul>
+	<!--js实现下面横条移动-->
+	<!--jq滑动导航结束-->
+	<ul class="jsNav clearfix">
+		<li class="navList huaCurrent"><a href="#">首页</a></li>
+		<li class="navList"><a href="#">了解我们</a></li>
+		<li class="navList"><a href="#">产品展示</a></li>
+		<li class="navList"><a href="#">服务报价</a></li>
+		<li class="navList"><a href="#">最新消息</a></li>
+		<li class="navList"><a href="#">联系方式</a></li>
+		<li class="navLast">a</li>
+	</ul>
+	<!--js实现下面横条移动结束-->
+	<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js?ver=1.2.6'></script>
+	<!--导航插件-->
+	<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$(".lavaLamp").lavaLamp({
+			fx: "backout", //缓动类型
+			speed: 700,
+			click: function(event,menuItem){
+				return flase; //单击触发事件
+			}
+		});
+	});
+	</script>
+	<script type="text/javascript">
+		/*IE6背景图片卡住问题*/
+	document.execCommand("BackgroundImageCache",false,true);
+	</script>
+	<!--插件结束-->
+	<!--js实现下面横条移动-->
+	<script type="text/javascript" src="js/myAction.js"></script>
+	<script type="text/javascript">
+		/*--getElementsByClassName兼容*/
+		if(!document.getElementsByClassName){
+			document.getElementsByClassName = function(className,element){
+				var children = (element || document).getElementsByTagName('*');
+				var elements = new Array();
+				for(var i = 0;i < children.length;i++){
+					var child = children[i];
+					var classNames = child.className.split(' ');//注意是空格，不然就变成一个个英文了
+					for(var j = 0;j < classNames.length;j++){
+						if(classNames[j] == className){
+							elements.push(child);
+							break;
+						}
+					}
+				}
+				return elements;
+			};
+		}
+		/*getElementsByClassName兼容--*/
+		var oLi = document.getElementsByClassName("navLast")[0];
+		var aLi = document.getElementsByClassName("navList");
+		var oliCur = document.getElementsByClassName("huaCurrent")[0];
+		var oUl = document.getElementsByClassName("jsNav")[0];
+		function reachCurrent(){
+			oLi.style.width = oliCur.offsetWidth + "px";
+			oLi.style.left = oliCur.offsetLeft + "px";
+		}
+		reachCurrent();
+		function gotoHover(){
+			for(var i = 0; i < aLi.length;i++){
+				aLi[i].onmouseover = function(){
+					var liWidth = this.offsetWidth;
+					var liLeft = this.offsetLeft;
+					startMove(oLi,{width : liWidth,left : liLeft});
+				};
+			}
+		}
+		gotoHover();
+		function leaveUl(){
+			oUl.onmouseout = function(){
+				startMove(oLi,{width : oliCur.offsetWidth,left : oliCur.offsetLeft});
+			};
+		}
+		leaveUl();
+	</script>
+	<!--js实现下面横条移动结束-->
+</body>
+</html>
